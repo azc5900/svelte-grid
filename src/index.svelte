@@ -26,10 +26,8 @@
         cols={getComputedCols}
         {gapX}
         {gapY}
-        {sensor}
         {maxRows}
         {rowHeight}
-        container={scroller}
         nativeContainer={container}
         let:resizePointerDown
         let:movePointerDown>
@@ -60,9 +58,6 @@
   export let throttleUpdate = 100;
   export let throttleResize = 100;
 	export let maxRows;
-
-  export let scroller = undefined;
-  export let sensor = 20;
 
   let getComputedCols;
 
