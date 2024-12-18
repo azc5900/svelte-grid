@@ -75,16 +75,17 @@ function getRowsCount(items, cols) {
 function findFreeSpaceForItem(matrix, item) {
   const cols = matrix[0].length;
   const w = Math.min(cols, item.w);
-  const xNtime = cols - w;
-  const getMatrixRows = matrix.length;
+  let xNtime = cols - w;
+  let getMatrixRows = matrix.length;
 
-  for (let i = 0; i < getMatrixRows; i++) {
+  for (var i = 0; i < getMatrixRows; i++) {
     const row = matrix[i];
-    for (let j = 0; j < xNtime + 1; j++) {
+    for (var j = 0; j < xNtime + 1; j++) {
       const sliceA = row.slice(j, j + w);
       const empty = sliceA.every((val) => val === undefined);
       if (empty) {
         const isEmpty = matrix.slice(i, i + item.h).every((a) => a.slice(j, j + w).every((n) => n === undefined));
+
         if (isEmpty) {
           return { y: i, x: j };
         }
@@ -92,8 +93,10 @@ function findFreeSpaceForItem(matrix, item) {
     }
   }
 
-  // Return null if no space is found
-  return null;
+  return {
+    y: getMatrixRows,
+    x: 0,
+  };
 }
 
 const getItem = (item, col) => {
@@ -140,19 +143,18 @@ function moveItem(active, items, cols, original) {
 
   // Iterate over close elements under active item
   closeObj.forEach((item) => {
-    const position = findFreeSpaceForItem(matrix, item[cols]);
-    if (position === null) {
-      console.warn(`Cannot place item ${item.id}: Grid is full or no valid position.`);
-      // Optional: Notify the user
-      alert(`Cannot place item ${item.id}: Grid is full or no valid position.`);
-      return; // Skip this item
-    }
-
+    // Find position for element
+    let position = findFreeSpaceForItem(matrix, item[cols]);
+    // Exclude item
     exclude.push(item.id);
+
+    // Assign the position to the element in the column
     tempItems = updateItem(tempItems, item, position, cols);
 
-    // Update matrix for the next iteration
-    const getIgnoreItems = tempCloseBlocks.filter((value) => exclude.indexOf(value) === -1);
+    // Recreate ids of elements
+    let getIgnoreItems = tempCloseBlocks.filter((value) => exclude.indexOf(value) === -1);
+
+    // Update matrix for next iteration
     matrix = makeMatrixFromItemsIgnore(tempItems, getIgnoreItems, getRowsCount(tempItems, cols), cols);
   });
 
