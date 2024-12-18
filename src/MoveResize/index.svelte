@@ -228,13 +228,16 @@
     const _newScrollTop = scrollElement.scrollTop - _scrollTop;
 
     const boundX = capturePos.x + cordDiff.x;
-    const boundY = capturePos.y + (cordDiff.y + _newScrollTop);
+    let boundY = capturePos.y + (cordDiff.y + _newScrollTop);
 
     let gridX = Math.round(boundX / xPerPx);
     let gridY = Math.round(boundY / yPerPx);
 
+    // Enforce max rows constraint
+    const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
+    shadow.y = Math.min(Math.max(gridY, 0), maxYPosition);
+
     shadow.x = Math.max(Math.min(gridX, cols - shadow.w), 0);
-    shadow.y = Math.max(gridY, 0);
 
     if (max.y) {
       shadow.y = Math.min(shadow.y, max.y);
@@ -242,6 +245,7 @@
 
     repaint();
   };
+
 
   const pointermove = (event) => {
     event.preventDefault();
