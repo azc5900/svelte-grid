@@ -753,7 +753,7 @@
     	resizePointerDown: /*resizePointerDown*/ ctx[19]
     });
 
-    // (367:2) {#if resizable && !item.customResizer}
+    // (68:2) {#if resizable && !item.customResizer}
     function create_if_block_1$1(ctx) {
     	let div;
     	let mounted;
@@ -781,7 +781,7 @@
     	};
     }
 
-    // (372:0) {#if active || trans}
+    // (73:0) {#if active || trans}
     function create_if_block$1(ctx) {
     	let div;
 
@@ -795,7 +795,7 @@
     		},
     		m(target, anchor) {
     			insert(target, div, anchor);
-    			/*div_binding*/ ctx[32](div);
+    			/*div_binding*/ ctx[31](div);
     		},
     		p(ctx, dirty) {
     			if (dirty[0] & /*shadow, xPerPx, gapX*/ 4416) {
@@ -812,7 +812,7 @@
     		},
     		d(detaching) {
     			if (detaching) detach(div);
-    			/*div_binding*/ ctx[32](null);
+    			/*div_binding*/ ctx[31](null);
     		}
     	};
     }
@@ -826,8 +826,8 @@
     	let current;
     	let mounted;
     	let dispose;
-    	const default_slot_template = /*#slots*/ ctx[31].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[30], get_default_slot_context$1);
+    	const default_slot_template = /*#slots*/ ctx[30].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[29], get_default_slot_context$1);
     	let if_block0 = /*resizable*/ ctx[4] && !/*item*/ ctx[10].customResizer && create_if_block_1$1(ctx);
     	let if_block1 = (/*active*/ ctx[13] || /*trans*/ ctx[16]) && create_if_block$1(ctx);
 
@@ -885,8 +885,8 @@
     			ctx = new_ctx;
 
     			if (default_slot) {
-    				if (default_slot.p && dirty[0] & /*$$scope*/ 1073741824) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[30], dirty, get_default_slot_changes$1, get_default_slot_context$1);
+    				if (default_slot.p && dirty[0] & /*$$scope*/ 536870912) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[29], dirty, get_default_slot_changes$1, get_default_slot_context$1);
     				}
     			}
 
@@ -977,7 +977,6 @@
     	let { rowHeight } = $$props;
     	let { cols } = $$props;
     	let { nativeContainer } = $$props;
-    	let { autoScroll } = $$props;
     	let shadowElement;
     	let shadow = {};
     	let active = false;
@@ -1114,11 +1113,6 @@
     		event.stopImmediatePropagation();
     		let { clientX, clientY } = event;
 
-    		if (!autoScroll) {
-    			update(); // Simply update without autoscrolling
-    			return;
-    		}
-
     		if (maxRows && clientY >= maxY) {
     			clientY = maxY;
     		}
@@ -1253,8 +1247,7 @@
     		if ("rowHeight" in $$props) $$invalidate(26, rowHeight = $$props.rowHeight);
     		if ("cols" in $$props) $$invalidate(27, cols = $$props.cols);
     		if ("nativeContainer" in $$props) $$invalidate(28, nativeContainer = $$props.nativeContainer);
-    		if ("autoScroll" in $$props) $$invalidate(29, autoScroll = $$props.autoScroll);
-    		if ("$$scope" in $$props) $$invalidate(30, $$scope = $$props.$$scope);
+    		if ("$$scope" in $$props) $$invalidate(29, $$scope = $$props.$$scope);
     	};
 
     	return [
@@ -1287,7 +1280,6 @@
     		rowHeight,
     		cols,
     		nativeContainer,
-    		autoScroll,
     		$$scope,
     		slots,
     		div_binding
@@ -1325,8 +1317,7 @@
     				maxRows: 25,
     				rowHeight: 26,
     				cols: 27,
-    				nativeContainer: 28,
-    				autoScroll: 29
+    				nativeContainer: 28
     			},
     			[-1, -1]
     		);
@@ -1344,25 +1335,25 @@
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[30] = list[i];
-    	child_ctx[32] = i;
+    	child_ctx[29] = list[i];
+    	child_ctx[31] = i;
     	return child_ctx;
     }
 
     const get_default_slot_changes = dirty => ({
-    	movePointerDown: dirty[1] & /*movePointerDown*/ 8,
-    	resizePointerDown: dirty[1] & /*resizePointerDown*/ 4,
+    	movePointerDown: dirty[1] & /*movePointerDown*/ 4,
+    	resizePointerDown: dirty[1] & /*resizePointerDown*/ 2,
     	dataItem: dirty[0] & /*items*/ 1,
-    	item: dirty[0] & /*items, getComputedCols*/ 129,
+    	item: dirty[0] & /*items, getComputedCols*/ 65,
     	index: dirty[0] & /*items*/ 1
     });
 
     const get_default_slot_context = ctx => ({
-    	movePointerDown: /*movePointerDown*/ ctx[34],
-    	resizePointerDown: /*resizePointerDown*/ ctx[33],
-    	dataItem: /*item*/ ctx[30],
-    	item: /*item*/ ctx[30][/*getComputedCols*/ ctx[7]],
-    	index: /*i*/ ctx[32]
+    	movePointerDown: /*movePointerDown*/ ctx[33],
+    	resizePointerDown: /*resizePointerDown*/ ctx[32],
+    	dataItem: /*item*/ ctx[29],
+    	item: /*item*/ ctx[29][/*getComputedCols*/ ctx[6]],
+    	index: /*i*/ ctx[31]
     });
 
     // (9:2) {#if xPerPx || !fastStart}
@@ -1372,7 +1363,7 @@
     	let each_1_anchor;
     	let current;
     	let each_value = /*items*/ ctx[0];
-    	const get_key = ctx => /*item*/ ctx[30].id;
+    	const get_key = ctx => /*item*/ ctx[29].id;
 
     	for (let i = 0; i < each_value.length; i += 1) {
     		let child_ctx = get_each_context(ctx, each_value, i);
@@ -1397,7 +1388,7 @@
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (dirty[0] & /*items, getComputedCols, xPerPx, yPerPx, gapX, gapY, sensor, maxRows, autoScroll, rowHeight, scroller, container, handleRepaint, pointerup, $$scope*/ 8450043 | dirty[1] & /*movePointerDown, resizePointerDown*/ 12) {
+    			if (dirty[0] & /*items, getComputedCols, xPerPx, yPerPx, gapX, gapY, sensor, maxRows, rowHeight, scroller, container, handleRepaint, pointerup, $$scope*/ 4225019 | dirty[1] & /*movePointerDown, resizePointerDown*/ 6) {
     				each_value = /*items*/ ctx[0];
     				group_outros();
     				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
@@ -1430,11 +1421,11 @@
     	};
     }
 
-    // (37:8) {#if item[getComputedCols]}
+    // (36:8) {#if item[getComputedCols]}
     function create_if_block_1(ctx) {
     	let current;
-    	const default_slot_template = /*#slots*/ ctx[21].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[23], get_default_slot_context);
+    	const default_slot_template = /*#slots*/ ctx[20].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[22], get_default_slot_context);
 
     	return {
     		c() {
@@ -1449,8 +1440,8 @@
     		},
     		p(ctx, dirty) {
     			if (default_slot) {
-    				if (default_slot.p && dirty[0] & /*$$scope, items, getComputedCols*/ 8388737 | dirty[1] & /*movePointerDown, resizePointerDown*/ 12) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[23], dirty, get_default_slot_changes, get_default_slot_context);
+    				if (default_slot.p && dirty[0] & /*$$scope, items, getComputedCols*/ 4194369 | dirty[1] & /*movePointerDown, resizePointerDown*/ 6) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[22], dirty, get_default_slot_changes, get_default_slot_context);
     				}
     			}
     		},
@@ -1469,11 +1460,11 @@
     	};
     }
 
-    // (11:6) <MoveResize          on:repaint={handleRepaint}          on:pointerup={pointerup}          id={item.id}          resizable={item[getComputedCols] && item[getComputedCols].resizable}          draggable={item[getComputedCols] && item[getComputedCols].draggable}          {xPerPx}          {yPerPx}          width={Math.min(getComputedCols, item[getComputedCols] && item[getComputedCols].w) * xPerPx - gapX * 2}          height={(item[getComputedCols] && item[getComputedCols].h) * yPerPx - gapY * 2}          top={(item[getComputedCols] && item[getComputedCols].y) * yPerPx + gapY}          left={(item[getComputedCols] && item[getComputedCols].x) * xPerPx + gapX}          item={item[getComputedCols]}          min={item[getComputedCols] && item[getComputedCols].min}          max={item[getComputedCols] && item[getComputedCols].max}          cols={getComputedCols}          {gapX}          {gapY}          {sensor}          {maxRows}          {autoScroll}          {rowHeight}          container={scroller}          nativeContainer={container}          let:resizePointerDown          let:movePointerDown>
+    // (11:6) <MoveResize          on:repaint={handleRepaint}          on:pointerup={pointerup}          id={item.id}          resizable={item[getComputedCols] && item[getComputedCols].resizable}          draggable={item[getComputedCols] && item[getComputedCols].draggable}          {xPerPx}          {yPerPx}          width={Math.min(getComputedCols, item[getComputedCols] && item[getComputedCols].w) * xPerPx - gapX * 2}          height={(item[getComputedCols] && item[getComputedCols].h) * yPerPx - gapY * 2}          top={(item[getComputedCols] && item[getComputedCols].y) * yPerPx + gapY}          left={(item[getComputedCols] && item[getComputedCols].x) * xPerPx + gapX}          item={item[getComputedCols]}          min={item[getComputedCols] && item[getComputedCols].min}          max={item[getComputedCols] && item[getComputedCols].max}          cols={getComputedCols}          {gapX}          {gapY}          {sensor}          {maxRows}          {rowHeight}          container={scroller}          nativeContainer={container}          let:resizePointerDown          let:movePointerDown>
     function create_default_slot(ctx) {
     	let t;
     	let current;
-    	let if_block = /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && create_if_block_1(ctx);
+    	let if_block = /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && create_if_block_1(ctx);
 
     	return {
     		c() {
@@ -1486,11 +1477,11 @@
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]]) {
+    			if (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty[0] & /*items, getComputedCols*/ 129) {
+    					if (dirty[0] & /*items, getComputedCols*/ 65) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -1533,43 +1524,42 @@
 
     	moveresize = new MoveResize({
     			props: {
-    				id: /*item*/ ctx[30].id,
-    				resizable: /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].resizable,
-    				draggable: /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].draggable,
-    				xPerPx: /*xPerPx*/ ctx[9],
-    				yPerPx: /*yPerPx*/ ctx[13],
-    				width: Math.min(/*getComputedCols*/ ctx[7], /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].w) * /*xPerPx*/ ctx[9] - /*gapX*/ ctx[10] * 2,
-    				height: (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].h) * /*yPerPx*/ ctx[13] - /*gapY*/ ctx[11] * 2,
-    				top: (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].y) * /*yPerPx*/ ctx[13] + /*gapY*/ ctx[11],
-    				left: (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].x) * /*xPerPx*/ ctx[9] + /*gapX*/ ctx[10],
-    				item: /*item*/ ctx[30][/*getComputedCols*/ ctx[7]],
-    				min: /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].min,
-    				max: /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].max,
-    				cols: /*getComputedCols*/ ctx[7],
-    				gapX: /*gapX*/ ctx[10],
-    				gapY: /*gapY*/ ctx[11],
+    				id: /*item*/ ctx[29].id,
+    				resizable: /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].resizable,
+    				draggable: /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].draggable,
+    				xPerPx: /*xPerPx*/ ctx[8],
+    				yPerPx: /*yPerPx*/ ctx[12],
+    				width: Math.min(/*getComputedCols*/ ctx[6], /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].w) * /*xPerPx*/ ctx[8] - /*gapX*/ ctx[9] * 2,
+    				height: (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].h) * /*yPerPx*/ ctx[12] - /*gapY*/ ctx[10] * 2,
+    				top: (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].y) * /*yPerPx*/ ctx[12] + /*gapY*/ ctx[10],
+    				left: (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].x) * /*xPerPx*/ ctx[8] + /*gapX*/ ctx[9],
+    				item: /*item*/ ctx[29][/*getComputedCols*/ ctx[6]],
+    				min: /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].min,
+    				max: /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].max,
+    				cols: /*getComputedCols*/ ctx[6],
+    				gapX: /*gapX*/ ctx[9],
+    				gapY: /*gapY*/ ctx[10],
     				sensor: /*sensor*/ ctx[5],
     				maxRows: /*maxRows*/ ctx[3],
-    				autoScroll: /*autoScroll*/ ctx[6],
     				rowHeight: /*rowHeight*/ ctx[1],
     				container: /*scroller*/ ctx[4],
-    				nativeContainer: /*container*/ ctx[8],
+    				nativeContainer: /*container*/ ctx[7],
     				$$slots: {
     					default: [
     						create_default_slot,
     						({ resizePointerDown, movePointerDown }) => ({
-    							33: resizePointerDown,
-    							34: movePointerDown
+    							32: resizePointerDown,
+    							33: movePointerDown
     						}),
-    						({ resizePointerDown, movePointerDown }) => [0, (resizePointerDown ? 4 : 0) | (movePointerDown ? 8 : 0)]
+    						({ resizePointerDown, movePointerDown }) => [0, (resizePointerDown ? 2 : 0) | (movePointerDown ? 4 : 0)]
     					]
     				},
     				$$scope: { ctx }
     			}
     		});
 
-    	moveresize.$on("repaint", /*handleRepaint*/ ctx[15]);
-    	moveresize.$on("pointerup", /*pointerup*/ ctx[14]);
+    	moveresize.$on("repaint", /*handleRepaint*/ ctx[14]);
+    	moveresize.$on("pointerup", /*pointerup*/ ctx[13]);
 
     	return {
     		key: key_1,
@@ -1587,28 +1577,27 @@
     		p(new_ctx, dirty) {
     			ctx = new_ctx;
     			const moveresize_changes = {};
-    			if (dirty[0] & /*items*/ 1) moveresize_changes.id = /*item*/ ctx[30].id;
-    			if (dirty[0] & /*items, getComputedCols*/ 129) moveresize_changes.resizable = /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].resizable;
-    			if (dirty[0] & /*items, getComputedCols*/ 129) moveresize_changes.draggable = /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].draggable;
-    			if (dirty[0] & /*xPerPx*/ 512) moveresize_changes.xPerPx = /*xPerPx*/ ctx[9];
-    			if (dirty[0] & /*getComputedCols, items, xPerPx, gapX*/ 1665) moveresize_changes.width = Math.min(/*getComputedCols*/ ctx[7], /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].w) * /*xPerPx*/ ctx[9] - /*gapX*/ ctx[10] * 2;
-    			if (dirty[0] & /*items, getComputedCols, gapY*/ 2177) moveresize_changes.height = (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].h) * /*yPerPx*/ ctx[13] - /*gapY*/ ctx[11] * 2;
-    			if (dirty[0] & /*items, getComputedCols, gapY*/ 2177) moveresize_changes.top = (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].y) * /*yPerPx*/ ctx[13] + /*gapY*/ ctx[11];
-    			if (dirty[0] & /*items, getComputedCols, xPerPx, gapX*/ 1665) moveresize_changes.left = (/*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].x) * /*xPerPx*/ ctx[9] + /*gapX*/ ctx[10];
-    			if (dirty[0] & /*items, getComputedCols*/ 129) moveresize_changes.item = /*item*/ ctx[30][/*getComputedCols*/ ctx[7]];
-    			if (dirty[0] & /*items, getComputedCols*/ 129) moveresize_changes.min = /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].min;
-    			if (dirty[0] & /*items, getComputedCols*/ 129) moveresize_changes.max = /*item*/ ctx[30][/*getComputedCols*/ ctx[7]] && /*item*/ ctx[30][/*getComputedCols*/ ctx[7]].max;
-    			if (dirty[0] & /*getComputedCols*/ 128) moveresize_changes.cols = /*getComputedCols*/ ctx[7];
-    			if (dirty[0] & /*gapX*/ 1024) moveresize_changes.gapX = /*gapX*/ ctx[10];
-    			if (dirty[0] & /*gapY*/ 2048) moveresize_changes.gapY = /*gapY*/ ctx[11];
+    			if (dirty[0] & /*items*/ 1) moveresize_changes.id = /*item*/ ctx[29].id;
+    			if (dirty[0] & /*items, getComputedCols*/ 65) moveresize_changes.resizable = /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].resizable;
+    			if (dirty[0] & /*items, getComputedCols*/ 65) moveresize_changes.draggable = /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].draggable;
+    			if (dirty[0] & /*xPerPx*/ 256) moveresize_changes.xPerPx = /*xPerPx*/ ctx[8];
+    			if (dirty[0] & /*getComputedCols, items, xPerPx, gapX*/ 833) moveresize_changes.width = Math.min(/*getComputedCols*/ ctx[6], /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].w) * /*xPerPx*/ ctx[8] - /*gapX*/ ctx[9] * 2;
+    			if (dirty[0] & /*items, getComputedCols, gapY*/ 1089) moveresize_changes.height = (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].h) * /*yPerPx*/ ctx[12] - /*gapY*/ ctx[10] * 2;
+    			if (dirty[0] & /*items, getComputedCols, gapY*/ 1089) moveresize_changes.top = (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].y) * /*yPerPx*/ ctx[12] + /*gapY*/ ctx[10];
+    			if (dirty[0] & /*items, getComputedCols, xPerPx, gapX*/ 833) moveresize_changes.left = (/*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].x) * /*xPerPx*/ ctx[8] + /*gapX*/ ctx[9];
+    			if (dirty[0] & /*items, getComputedCols*/ 65) moveresize_changes.item = /*item*/ ctx[29][/*getComputedCols*/ ctx[6]];
+    			if (dirty[0] & /*items, getComputedCols*/ 65) moveresize_changes.min = /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].min;
+    			if (dirty[0] & /*items, getComputedCols*/ 65) moveresize_changes.max = /*item*/ ctx[29][/*getComputedCols*/ ctx[6]] && /*item*/ ctx[29][/*getComputedCols*/ ctx[6]].max;
+    			if (dirty[0] & /*getComputedCols*/ 64) moveresize_changes.cols = /*getComputedCols*/ ctx[6];
+    			if (dirty[0] & /*gapX*/ 512) moveresize_changes.gapX = /*gapX*/ ctx[9];
+    			if (dirty[0] & /*gapY*/ 1024) moveresize_changes.gapY = /*gapY*/ ctx[10];
     			if (dirty[0] & /*sensor*/ 32) moveresize_changes.sensor = /*sensor*/ ctx[5];
     			if (dirty[0] & /*maxRows*/ 8) moveresize_changes.maxRows = /*maxRows*/ ctx[3];
-    			if (dirty[0] & /*autoScroll*/ 64) moveresize_changes.autoScroll = /*autoScroll*/ ctx[6];
     			if (dirty[0] & /*rowHeight*/ 2) moveresize_changes.rowHeight = /*rowHeight*/ ctx[1];
     			if (dirty[0] & /*scroller*/ 16) moveresize_changes.container = /*scroller*/ ctx[4];
-    			if (dirty[0] & /*container*/ 256) moveresize_changes.nativeContainer = /*container*/ ctx[8];
+    			if (dirty[0] & /*container*/ 128) moveresize_changes.nativeContainer = /*container*/ ctx[7];
 
-    			if (dirty[0] & /*$$scope, items, getComputedCols*/ 8388737 | dirty[1] & /*movePointerDown, resizePointerDown*/ 12) {
+    			if (dirty[0] & /*$$scope, items, getComputedCols*/ 4194369 | dirty[1] & /*movePointerDown, resizePointerDown*/ 6) {
     				moveresize_changes.$$scope = { dirty, ctx };
     			}
 
@@ -1633,27 +1622,27 @@
     function create_fragment(ctx) {
     	let div;
     	let current;
-    	let if_block = (/*xPerPx*/ ctx[9] || !/*fastStart*/ ctx[2]) && create_if_block(ctx);
+    	let if_block = (/*xPerPx*/ ctx[8] || !/*fastStart*/ ctx[2]) && create_if_block(ctx);
 
     	return {
     		c() {
     			div = element("div");
     			if (if_block) if_block.c();
     			attr(div, "class", "svlt-grid-container svelte-1k5vgfu");
-    			set_style(div, "height", /*containerHeight*/ ctx[12] + "px");
+    			set_style(div, "height", /*containerHeight*/ ctx[11] + "px");
     		},
     		m(target, anchor) {
     			insert(target, div, anchor);
     			if (if_block) if_block.m(div, null);
-    			/*div_binding*/ ctx[22](div);
+    			/*div_binding*/ ctx[21](div);
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (/*xPerPx*/ ctx[9] || !/*fastStart*/ ctx[2]) {
+    			if (/*xPerPx*/ ctx[8] || !/*fastStart*/ ctx[2]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty[0] & /*xPerPx, fastStart*/ 516) {
+    					if (dirty[0] & /*xPerPx, fastStart*/ 260) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -1672,8 +1661,8 @@
     				check_outros();
     			}
 
-    			if (!current || dirty[0] & /*containerHeight*/ 4096) {
-    				set_style(div, "height", /*containerHeight*/ ctx[12] + "px");
+    			if (!current || dirty[0] & /*containerHeight*/ 2048) {
+    				set_style(div, "height", /*containerHeight*/ ctx[11] + "px");
     			}
     		},
     		i(local) {
@@ -1688,7 +1677,7 @@
     		d(detaching) {
     			if (detaching) detach(div);
     			if (if_block) if_block.d();
-    			/*div_binding*/ ctx[22](null);
+    			/*div_binding*/ ctx[21](null);
     		}
     	};
     }
@@ -1710,7 +1699,6 @@
     	let { maxRows } = $$props;
     	let { scroller = undefined } = $$props;
     	let { sensor = 20 } = $$props;
-    	let { autoScroll = true } = $$props;
     	let getComputedCols;
     	let container;
     	let xPerPx = 0;
@@ -1740,8 +1728,8 @@
     				requestAnimationFrame(() => {
     					let width = entries[0].contentRect.width;
     					if (width === containerWidth) return;
-    					$$invalidate(7, getComputedCols = getColumn(width, cols));
-    					$$invalidate(9, xPerPx = width / getComputedCols);
+    					$$invalidate(6, getComputedCols = getColumn(width, cols));
+    					$$invalidate(8, xPerPx = width / getComputedCols);
 
     					if (!containerWidth) {
     						$$invalidate(0, items = specifyUndefinedColumns(items, getComputedCols, cols));
@@ -1805,33 +1793,32 @@
     	function div_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			container = $$value;
-    			$$invalidate(8, container);
+    			$$invalidate(7, container);
     		});
     	}
 
     	$$self.$$set = $$props => {
-    		if ("fillSpace" in $$props) $$invalidate(16, fillSpace = $$props.fillSpace);
+    		if ("fillSpace" in $$props) $$invalidate(15, fillSpace = $$props.fillSpace);
     		if ("items" in $$props) $$invalidate(0, items = $$props.items);
     		if ("rowHeight" in $$props) $$invalidate(1, rowHeight = $$props.rowHeight);
-    		if ("cols" in $$props) $$invalidate(17, cols = $$props.cols);
-    		if ("gap" in $$props) $$invalidate(18, gap = $$props.gap);
+    		if ("cols" in $$props) $$invalidate(16, cols = $$props.cols);
+    		if ("gap" in $$props) $$invalidate(17, gap = $$props.gap);
     		if ("fastStart" in $$props) $$invalidate(2, fastStart = $$props.fastStart);
-    		if ("throttleUpdate" in $$props) $$invalidate(19, throttleUpdate = $$props.throttleUpdate);
-    		if ("throttleResize" in $$props) $$invalidate(20, throttleResize = $$props.throttleResize);
+    		if ("throttleUpdate" in $$props) $$invalidate(18, throttleUpdate = $$props.throttleUpdate);
+    		if ("throttleResize" in $$props) $$invalidate(19, throttleResize = $$props.throttleResize);
     		if ("maxRows" in $$props) $$invalidate(3, maxRows = $$props.maxRows);
     		if ("scroller" in $$props) $$invalidate(4, scroller = $$props.scroller);
     		if ("sensor" in $$props) $$invalidate(5, sensor = $$props.sensor);
-    		if ("autoScroll" in $$props) $$invalidate(6, autoScroll = $$props.autoScroll);
-    		if ("$$scope" in $$props) $$invalidate(23, $$scope = $$props.$$scope);
+    		if ("$$scope" in $$props) $$invalidate(22, $$scope = $$props.$$scope);
     	};
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[0] & /*gap*/ 262144) {
-    			$$invalidate(10, [gapX, gapY] = gap, gapX, ($$invalidate(11, gapY), $$invalidate(18, gap)));
+    		if ($$self.$$.dirty[0] & /*gap*/ 131072) {
+    			$$invalidate(9, [gapX, gapY] = gap, gapX, ($$invalidate(10, gapY), $$invalidate(17, gap)));
     		}
 
-    		if ($$self.$$.dirty[0] & /*items, getComputedCols*/ 129) {
-    			$$invalidate(12, containerHeight = getContainerHeight(items, yPerPx, getComputedCols));
+    		if ($$self.$$.dirty[0] & /*items, getComputedCols*/ 65) {
+    			$$invalidate(11, containerHeight = getContainerHeight(items, yPerPx, getComputedCols));
     		}
     	};
 
@@ -1842,7 +1829,6 @@
     		maxRows,
     		scroller,
     		sensor,
-    		autoScroll,
     		getComputedCols,
     		container,
     		xPerPx,
@@ -1875,18 +1861,17 @@
     			create_fragment,
     			safe_not_equal,
     			{
-    				fillSpace: 16,
+    				fillSpace: 15,
     				items: 0,
     				rowHeight: 1,
-    				cols: 17,
-    				gap: 18,
+    				cols: 16,
+    				gap: 17,
     				fastStart: 2,
-    				throttleUpdate: 19,
-    				throttleResize: 20,
+    				throttleUpdate: 18,
+    				throttleResize: 19,
     				maxRows: 3,
     				scroller: 4,
-    				sensor: 5,
-    				autoScroll: 6
+    				sensor: 5
     			},
     			[-1, -1]
     		);
