@@ -1086,12 +1086,18 @@ function instance$1($$self, $$props, $$invalidate) {
 		const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
 
 		$$invalidate(12, shadow.y = Math.min(Math.max(gridY, 0), maxYPosition), shadow);
+
+		// Enforce grid bounds for x (left position)
 		$$invalidate(12, shadow.x = Math.max(Math.min(gridX, cols - shadow.w), 0), shadow);
 
 		if (max.y) {
 			$$invalidate(12, shadow.y = Math.min(shadow.y, max.y), shadow);
 		}
 
+		// Ensure that the x and y positions don't go beyond the grid
+		$$invalidate(12, shadow.x = Math.max(0, Math.min(shadow.x, cols - shadow.w)), shadow);
+
+		$$invalidate(12, shadow.y = Math.max(0, Math.min(shadow.y, maxRows - shadow.h)), shadow);
 		repaint();
 	};
 
@@ -1117,7 +1123,6 @@ function instance$1($$self, $$props, $$invalidate) {
 		if (vel.y > 0) {
 			if (!intervalId) {
 				// Start scrolling
-				// TODO Use requestAnimationFrame
 				intervalId = setInterval(
 					() => {
 						scrollElement.scrollTop += 2 * (vel.y + Math.sign(vel.y)) * sign.y;

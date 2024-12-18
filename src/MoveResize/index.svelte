@@ -237,11 +237,16 @@
     const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
     shadow.y = Math.min(Math.max(gridY, 0), maxYPosition);
 
+    // Enforce grid bounds for x (left position)
     shadow.x = Math.max(Math.min(gridX, cols - shadow.w), 0);
 
     if (max.y) {
       shadow.y = Math.min(shadow.y, max.y);
     }
+
+    // Ensure that the x and y positions don't go beyond the grid
+    shadow.x = Math.max(0, Math.min(shadow.x, cols - shadow.w));
+    shadow.y = Math.max(0, Math.min(shadow.y, maxRows - shadow.h));
 
     repaint();
   };
@@ -253,9 +258,10 @@
     event.stopImmediatePropagation();
     let { clientX, clientY } = event;
 
-		if (maxRows && clientY >= maxY) {
-			clientY = maxY;
-		}
+    if (maxRows && clientY >= maxY) {
+      clientY = maxY;
+    }
+    
     cordDiff = { x: clientX - initX, y: clientY - initY };
 
     const Y_SENSOR = sensor;
@@ -272,7 +278,6 @@
     if (vel.y > 0) {
       if (!intervalId) {
         // Start scrolling
-        // TODO Use requestAnimationFrame
         intervalId = setInterval(() => {
           scrollElement.scrollTop += 2 * (vel.y + Math.sign(vel.y)) * sign.y;
           update();
@@ -351,6 +356,7 @@
 
     repaint();
   };
+
 
   const resizePointerUp = (e) => {
     e.stopPropagation();
