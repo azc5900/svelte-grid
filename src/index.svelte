@@ -28,6 +28,7 @@
         {gapY}
         {sensor}
         {maxRows}
+        {autoScroll}
         {rowHeight}
         container={scroller}
         nativeContainer={container}
@@ -63,6 +64,8 @@
 
   export let scroller = undefined;
   export let sensor = 20;
+
+  export let autoScroll = true;
 
   let getComputedCols;
 
