@@ -45,7 +45,7 @@ const updateItem = (elements, active, position, col) => {
   });
 };
 
-export function moveItemsAroundItem(active, items, cols, original) {
+export function moveItemsAroundItem(active, items, cols, original, maxRows) {
   // Get current item from the breakpoint
   const activeItem = getItem(active, cols);
   const ids = items.map((value) => value.id).filter((value) => value !== activeItem.id);
@@ -64,6 +64,11 @@ export function moveItemsAroundItem(active, items, cols, original) {
   els.forEach((item) => {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
+
+    // Ensure the item does not move out of bounds
+    position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
+    position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
+
     // Exclude item
     exclude.push(item.id);
 

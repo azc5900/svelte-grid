@@ -594,7 +594,7 @@ const updateItem = (elements, active, position, col) => {
   });
 };
 
-function moveItemsAroundItem(active, items, cols, original) {
+function moveItemsAroundItem(active, items, cols, original, maxRows) {
   // Get current item from the breakpoint
   const activeItem = getItem(active, cols);
   const ids = items.map((value) => value.id).filter((value) => value !== activeItem.id);
@@ -613,6 +613,11 @@ function moveItemsAroundItem(active, items, cols, original) {
   els.forEach((item) => {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
+
+    // Ensure the item does not move out of bounds
+    position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
+    position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
+
     // Exclude item
     exclude.push(item.id);
 
@@ -1759,7 +1764,7 @@ function instance($$self, $$props, $$invalidate) {
 			};
 
 			if (fillSpace) {
-				$$invalidate(0, items = moveItemsAroundItem(activeItem, items, getComputedCols, getItemById(detail.id, items)));
+				$$invalidate(0, items = moveItemsAroundItem(activeItem, items, getComputedCols, getItemById(detail.id, items), maxRows));
 			} else {
 				$$invalidate(0, items = moveItem(activeItem, items, getComputedCols, getItemById(detail.id, items)));
 			}
