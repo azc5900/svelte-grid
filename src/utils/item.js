@@ -61,42 +61,27 @@ export function moveItemsAroundItem(active, items, cols, original, maxRows) {
   // Exclude resolved elements ids in array
   let exclude = [];
 
-  // First, try to place the active item
-  let position = findFreeSpaceForItem(matrix, activeItem[cols]);
-
-  // Ensure the active item doesn't move out of bounds
-  position.y = Math.min(position.y, maxRows - activeItem[cols].h); // Ensure the y position is within the row bounds
-  position.x = Math.min(position.x, cols - activeItem[cols].w); // Ensure the x position is within the column bounds
-
-  // Update the position of the active item
-  tempItems = updateItem(tempItems, activeItem, position, cols);
-
-  // Exclude the active item's ID from future checks
-  exclude.push(activeItem.id);
-
-  // Now, we need to re-check the remaining items to ensure they fit without overlap
   els.forEach((item) => {
-    // Find position for each item, ensuring no overlap with other items
+    // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
 
     // Ensure the item does not move out of bounds
-    position.y = Math.min(position.y, maxRows - item[cols].h); // Ensure the y position is within the row bounds
-    position.x = Math.min(position.x, cols - item[cols].w); // Ensure the x position is within the column bounds
+    position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
+    position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
 
-    // Exclude item from further processing
+    // Exclude item
     exclude.push(item.id);
 
-    // Update item with new position
     tempItems = updateItem(tempItems, item, position, cols);
 
-    // Recreate the list of ids to ignore for future calculations
+    // Recreate ids of elements
     let getIgnoreItems = ids.filter((value) => exclude.indexOf(value) === -1);
 
-    // Update the matrix for the next iteration
+    // Update matrix for next iteration
     matrix = makeMatrixFromItemsIgnore(tempItems, getIgnoreItems, getRowsCount(tempItems, cols), cols);
   });
 
-  // Finally, return the updated items with adjusted positions
+  // Return result
   return tempItems;
 }
 
