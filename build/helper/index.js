@@ -118,6 +118,7 @@
     });
   };
 
+
   function moveItem(active, items, cols, original) {
     // Get current item from the breakpoint
     const item = getItem(active, cols);

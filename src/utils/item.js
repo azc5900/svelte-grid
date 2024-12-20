@@ -69,6 +69,14 @@ export function moveItemsAroundItem(active, items, cols, original, maxRows) {
     position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
     position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
 
+    // Check for overlap with other items
+    while (isOverlapping(position, item[cols], tempItems)) {
+      // If overlapping, try to find a new position (e.g., shift position by 1 or try another spot)
+      position = findFreeSpaceForItem(matrix, item[cols]);
+      position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
+      position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
+    }
+
     // Exclude item
     exclude.push(item.id);
 
@@ -84,6 +92,25 @@ export function moveItemsAroundItem(active, items, cols, original, maxRows) {
   // Return result
   return tempItems;
 }
+
+// Helper function to check if an item is overlapping with others
+function isOverlapping(position, itemDimensions, items) {
+  return items.some((existingItem) => {
+    const existingPosition = existingItem[cols];
+    const existingItemDimensions = existingItem[cols];
+
+    // Check if the new item overlaps with any existing item
+    const isOverlappingX =
+      position.x < existingPosition.x + existingItemDimensions.w &&
+      position.x + itemDimensions.w > existingPosition.x;
+    const isOverlappingY =
+      position.y < existingPosition.y + existingItemDimensions.h &&
+      position.y + itemDimensions.h > existingPosition.y;
+
+    return isOverlappingX && isOverlappingY;
+  });
+}
+
 
 export function moveItem(active, items, cols, original) {
   // Get current item from the breakpoint
