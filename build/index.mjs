@@ -634,53 +634,61 @@ function moveItemsAroundItem(active, items, cols, original, maxRows) {
   return tempItems;
 }
 
-function moveItem(active, items, cols, original) {
+function moveItem(active, items, cols, original, maxRows) {
   // Get current item from the breakpoint
   const item = getItem(active, cols);
 
-  // Create matrix from the items expect the active
+  // Create matrix from the items except the active one
   let matrix = makeMatrixFromItemsIgnore(items, [item.id], getRowsCount(items, cols), cols);
+  
   // Getting the ids of items under active Array<String>
   const closeBlocks = findCloseBlocks(items, matrix, item);
+  
   // Getting the objects of items under active Array<Object>
   let closeObj = findItemsById(closeBlocks, items);
-  // Getting whenever of these items is fixed
+  
+  // Getting whether any of these items is fixed
   const fixed = closeObj.find((value) => value[cols].fixed);
 
-  // If found fixed, reset the active to its original position
+  // If a fixed item is found, reset the active to its original position
   if (fixed) return items;
 
-  // Update items
+  // Update items with new active position
   items = updateItem(items, active, item, cols);
 
-  // Create matrix of items expect close elements
+  // Create matrix of items except close elements
   matrix = makeMatrixFromItemsIgnore(items, closeBlocks, getRowsCount(items, cols), cols);
 
-  // Create temp vars
+  // Temporary variables for items and close blocks
   let tempItems = items;
   let tempCloseBlocks = closeBlocks;
 
-  // Exclude resolved elements ids in array
+  // Exclude resolved elements' ids from further processing
   let exclude = [];
 
   // Iterate over close elements under active item
   closeObj.forEach((item) => {
-    // Find position for element
+    // Find position for the element
     let position = findFreeSpaceForItem(matrix, item[cols]);
-    // Exclude item
+
+    // Ensure the item does not move out of bounds
+    position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within row bounds
+    position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within column bounds
+
+    // Exclude item from further processing
     exclude.push(item.id);
 
     // Assign the position to the element in the column
     tempItems = updateItem(tempItems, item, position, cols);
 
-    // Recreate ids of elements
+    // Recreate ids of elements to exclude already processed ones
     let getIgnoreItems = tempCloseBlocks.filter((value) => exclude.indexOf(value) === -1);
 
-    // Update matrix for next iteration
+    // Update matrix for the next iteration
     matrix = makeMatrixFromItemsIgnore(tempItems, getIgnoreItems, getRowsCount(tempItems, cols), cols);
   });
 
-  // Return result
+  // Return updated items with new positions
   return tempItems;
 }
 
@@ -1766,7 +1774,7 @@ function instance($$self, $$props, $$invalidate) {
 			if (fillSpace) {
 				$$invalidate(0, items = moveItemsAroundItem(activeItem, items, getComputedCols, getItemById(detail.id, items), maxRows));
 			} else {
-				$$invalidate(0, items = moveItem(activeItem, items, getComputedCols, getItemById(detail.id, items)));
+				$$invalidate(0, items = moveItem(activeItem, items, getComputedCols, getItemById(detail.id, items), maxRows));
 			}
 
 			if (detail.onUpdate) detail.onUpdate();
