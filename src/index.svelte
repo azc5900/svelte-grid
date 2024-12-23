@@ -143,7 +143,7 @@
       if (fillSpace) {
         items = moveItemsAroundItem(activeItem, items, getComputedCols, getItemById(detail.id, items), maxRows);
       } else {
-        items = moveItem(activeItem, items, getComputedCols, getItemById(detail.id, items), maxRows);
+        items = moveItem(activeItem, items, getComputedCols, getItemById(detail.id, items));
       }
 
       if (detail.onUpdate) detail.onUpdate();
