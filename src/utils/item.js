@@ -85,11 +85,11 @@ export function moveItemsAroundItem(active, items, cols, original, maxRows) {
   return tempItems;
 }
 
-export function moveItem(active, items, cols, original) {
+export function moveItem(active, items, cols, original, maxRows) {
   // Get current item from the breakpoint
   const item = getItem(active, cols);
 
-  // Create matrix from the items expect the active
+  // Create matrix from the items except the active
   let matrix = makeMatrixFromItemsIgnore(items, [item.id], getRowsCount(items, cols), cols);
   // Getting the ids of items under active Array<String>
   const closeBlocks = findCloseBlocks(items, matrix, item);
@@ -104,7 +104,7 @@ export function moveItem(active, items, cols, original) {
   // Update items
   items = updateItem(items, active, item, cols);
 
-  // Create matrix of items expect close elements
+  // Create matrix of items except close elements
   matrix = makeMatrixFromItemsIgnore(items, closeBlocks, getRowsCount(items, cols), cols);
 
   // Create temp vars
@@ -118,6 +118,10 @@ export function moveItem(active, items, cols, original) {
   closeObj.forEach((item) => {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
+
+    // Ensure the item does not move out of bounds
+    position.y = Math.min(position.y, maxRows - item[cols].h); // Ensure the y position is within the row bounds
+
     // Exclude item
     exclude.push(item.id);
 
