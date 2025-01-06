@@ -146,6 +146,11 @@ function moveItem(active, items, cols, original, maxRows) {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
 
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      position.y = Math.min(position.y, maxRows - item[cols].h);
+    }
+
     // Ensure the item does not move out of bounds
     position.y = Math.min(position.y, maxRows - item[cols].h); // Ensure the y position is within the row bounds
 

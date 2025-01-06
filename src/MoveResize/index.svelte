@@ -226,16 +226,19 @@
 
   const update = () => {
     const _newScrollTop = scrollElement.scrollTop - _scrollTop;
-
     const boundX = capturePos.x + cordDiff.x;
     let boundY = capturePos.y + (cordDiff.y + _newScrollTop);
 
     let gridX = Math.round(boundX / xPerPx);
     let gridY = Math.round(boundY / yPerPx);
 
-    // Enforce max rows constraint
-    const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
-    shadow.y = Math.min(Math.max(gridY, 0), maxYPosition);
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
+      shadow.y = Math.min(Math.max(gridY, 0), maxYPosition);
+    } else {
+      shadow.y = Math.max(gridY, 0);
+    }
 
     // Enforce grid bounds for x (left position)
     shadow.x = Math.max(Math.min(gridX, cols - shadow.w), 0);
@@ -244,13 +247,16 @@
       shadow.y = Math.min(shadow.y, max.y);
     }
 
-    // Ensure that the x and y positions don't go beyond the grid
+    // Ensure x position doesn't go beyond grid
     shadow.x = Math.max(0, Math.min(shadow.x, cols - shadow.w));
-    shadow.y = Math.max(0, Math.min(shadow.y, maxRows - shadow.h));
+    
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      shadow.y = Math.max(0, Math.min(shadow.y, maxRows - shadow.h));
+    }
 
     repaint();
   };
-
 
   const pointermove = (event) => {
     event.preventDefault();

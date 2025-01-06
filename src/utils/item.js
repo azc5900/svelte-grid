@@ -65,9 +65,11 @@ export function moveItemsAroundItem(active, items, cols, original, maxRows) {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
 
-    // Ensure the item does not move out of bounds
-    position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
-    position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      position.y = Math.min(position.y, maxRows - item[cols].h);
+    }
+    position.x = Math.min(position.x, cols - item[cols].w);
 
     // Exclude item
     exclude.push(item.id);
@@ -118,6 +120,11 @@ export function moveItem(active, items, cols, original, maxRows) {
   closeObj.forEach((item) => {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
+
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      position.y = Math.min(position.y, maxRows - item[cols].h);
+    }
 
     // Ensure the item does not move out of bounds
     position.y = Math.min(position.y, maxRows - item[cols].h); // Ensure the y position is within the row bounds

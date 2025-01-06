@@ -614,9 +614,11 @@ function moveItemsAroundItem(active, items, cols, original, maxRows) {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
 
-    // Ensure the item does not move out of bounds
-    position.y = Math.min(position.y, maxRows - item[cols].h);  // Ensure the y position is within the row bounds
-    position.x = Math.min(position.x, cols - item[cols].w);  // Ensure the x position is within the column bounds
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      position.y = Math.min(position.y, maxRows - item[cols].h);
+    }
+    position.x = Math.min(position.x, cols - item[cols].w);
 
     // Exclude item
     exclude.push(item.id);
@@ -667,6 +669,11 @@ function moveItem(active, items, cols, original, maxRows) {
   closeObj.forEach((item) => {
     // Find position for element
     let position = findFreeSpaceForItem(matrix, item[cols]);
+
+    // Only apply maxRows constraint if defined
+    if (maxRows !== undefined) {
+      position.y = Math.min(position.y, maxRows - item[cols].h);
+    }
 
     // Ensure the item does not move out of bounds
     position.y = Math.min(position.y, maxRows - item[cols].h); // Ensure the y position is within the row bounds
@@ -1091,10 +1098,13 @@ function instance$1($$self, $$props, $$invalidate) {
 		let gridX = Math.round(boundX / xPerPx);
 		let gridY = Math.round(boundY / yPerPx);
 
-		// Enforce max rows constraint
-		const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
-
-		$$invalidate(12, shadow.y = Math.min(Math.max(gridY, 0), maxYPosition), shadow);
+		// Only apply maxRows constraint if defined
+		if (maxRows !== undefined) {
+			const maxYPosition = maxRows * rowHeight - item.h * rowHeight;
+			$$invalidate(12, shadow.y = Math.min(Math.max(gridY, 0), maxYPosition), shadow);
+		} else {
+			$$invalidate(12, shadow.y = Math.max(gridY, 0), shadow);
+		}
 
 		// Enforce grid bounds for x (left position)
 		$$invalidate(12, shadow.x = Math.max(Math.min(gridX, cols - shadow.w), 0), shadow);
@@ -1103,10 +1113,14 @@ function instance$1($$self, $$props, $$invalidate) {
 			$$invalidate(12, shadow.y = Math.min(shadow.y, max.y), shadow);
 		}
 
-		// Ensure that the x and y positions don't go beyond the grid
+		// Ensure x position doesn't go beyond grid
 		$$invalidate(12, shadow.x = Math.max(0, Math.min(shadow.x, cols - shadow.w)), shadow);
 
-		$$invalidate(12, shadow.y = Math.max(0, Math.min(shadow.y, maxRows - shadow.h)), shadow);
+		// Only apply maxRows constraint if defined
+		if (maxRows !== undefined) {
+			$$invalidate(12, shadow.y = Math.max(0, Math.min(shadow.y, maxRows - shadow.h)), shadow);
+		}
+
 		repaint();
 	};
 
