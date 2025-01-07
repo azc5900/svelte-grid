@@ -126,9 +126,6 @@ export function moveItem(active, items, cols, original, maxRows) {
       position.y = Math.min(position.y, maxRows - item[cols].h);
     }
 
-    // Ensure the item does not move out of bounds
-    position.y = Math.min(position.y, maxRows - item[cols].h); // Ensure the y position is within the row bounds
-
     // Exclude item
     exclude.push(item.id);
 
